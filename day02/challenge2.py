@@ -33,7 +33,7 @@ for line in sys.stdin:
       if g > max_green:
         max_green = g  
   power = max_red*max_green*max_blue
-  print(f"game {game_num} power is {power}")
+  #print(f"game {game_num} power is {power}")
   
   answer += power
 

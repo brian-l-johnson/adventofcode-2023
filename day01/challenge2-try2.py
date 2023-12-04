@@ -1,5 +1,4 @@
 import sys
-import re
 
 sum = 0
 

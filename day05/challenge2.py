@@ -3,6 +3,8 @@
 import sys
 import math
 import re
+from datetime import datetime
+
 
 def fill_map(map, dst, src, count):
     offset = dst-src;
@@ -101,5 +103,5 @@ for i in range(int((len(seeds))/2)):
 
         if location < answer:
             answer = location
-            print(answer)
+            print(f"{datetime.now()}:Seed:{seed}:location:{answer}")
 print(answer)

@@ -2,7 +2,6 @@
 
 import sys
 import re
-import heapq
 
 number_re = re.compile(r'^\d$')
 hand_def_re = re.compile(r"([AKQJT23456789]){5}\s+\d+")
@@ -97,20 +96,15 @@ for line in sys.stdin:
     hand_def = line.split(" ")
     hands.append(Hand(hand_def[0], hand_def[1]))
     
-heapq.heapify(hands)
+print(hands)
+hands.sort()
 print(hands)
 
-sorted_hands = []
-while(len(hands)> 0):
-    sorted_hands.append(heapq.heappop(hands))
-
-print(sorted_hands)
-
 answer = 0
-for i in range(len(sorted_hands)):
-    answer = answer + sorted_hands[i].getBid() * (i+1)
-    cards = sorted_hands[i].getCards()
-    print(f"{cards}:{sorted_hands[i].getBid()}:{handScore(cards)}:{numberify(cards[0])}:{numberify(cards[1])}:{numberify(cards[2])}:{numberify(cards[3])}:{numberify(cards[4])}")
+for i in range(len(hands)):
+    answer = answer + hands[i].getBid() * (i+1)
+    cards = hands[i].getCards()
+    print(f"{cards}:{hands[i].getBid()}:{handScore(cards)}:{numberify(cards[0])}:{numberify(cards[1])}:{numberify(cards[2])}:{numberify(cards[3])}:{numberify(cards[4])}")
 
 print(answer)
 

@@ -2,12 +2,9 @@
 
 import sys
 import re
-import heapq
 
 number_re = re.compile(r'^\d$')
 hand_def_re = re.compile(r"([AKQJT23456789]){5}\s+\d+")
-
-
 
 def makeEffectiveHand(cards):
     if "J" in cards:
@@ -97,19 +94,19 @@ class Hand(object):
     def __lt__(self, other):
         selfscore = handScore(self.cards)
         otherscore = handScore(other.cards)
-        print(f"comparing {self.cards} ({selfscore}) to {other.cards} ({otherscore})")
+        #print(f"comparing {self.cards} ({selfscore}) to {other.cards} ({otherscore})")
         if selfscore > otherscore:
-            print(f"{self.cards} is better")
+            #print(f"{self.cards} is better")
             return False
         if selfscore < otherscore:
-            print(f"{other.cards} is better")
+            #print(f"{other.cards} is better")
             return True
         b =  breakTie(self.originalcards, other.originalcards)
         if b:
-            print(f"{self.cards} is better")
+            #print(f"{self.cards} is better")
             return False
         else:
-            print(f"{other.cards} is better")
+            #print(f"{other.cards} is better")
             return True
     def getBid(self):
         return self.bid
@@ -127,21 +124,16 @@ for line in sys.stdin:
         exit(-1)
     hand_def = line.split(" ")
     hands.append(Hand(hand_def[0], hand_def[1]))
-    
-heapq.heapify(hands)
+
+print(hands)
+hands.sort()
 print(hands)
 
-sorted_hands = []
-while(len(hands)> 0):
-    sorted_hands.append(heapq.heappop(hands))
-
-print(sorted_hands)
-
 answer = 0
-for i in range(len(sorted_hands)):
-    answer = answer + sorted_hands[i].getBid() * (i+1)
-    cards = sorted_hands[i].getCards()
-    print(f"{cards}:{sorted_hands[i].getOriginalCards()}:{sorted_hands[i].getBid()}:{handScore(cards)}:{numberify(cards[0])}:{numberify(cards[1])}:{numberify(cards[2])}:{numberify(cards[3])}:{numberify(cards[4])}")
+for i in range(len(hands)):
+    answer = answer + hands[i].getBid() * (i+1)
+    cards = hands[i].getCards()
+    print(f"{cards}:{hands[i].getOriginalCards()}:{hands[i].getBid()}:{handScore(cards)}:{numberify(cards[0])}:{numberify(cards[1])}:{numberify(cards[2])}:{numberify(cards[3])}:{numberify(cards[4])}")
 
 print(answer)
 
